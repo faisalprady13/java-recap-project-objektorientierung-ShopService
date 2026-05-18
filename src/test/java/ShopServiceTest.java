@@ -33,4 +33,18 @@ class ShopServiceTest {
         //THEN
         assertNull(actual);
     }
+
+    @Test
+    void getOrdersByStatus_shouldReturnOrdersWithStatusProcessing_whenGivenStatusProcessing() {
+
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1", "2");
+
+        shopService.addOrder(List.of("1"));
+        shopService.addOrder(List.of("1"));
+        shopService.addOrder(List.of("1"));
+
+        assertEquals(3, shopService.getOrdersByStatus(OrderStatus.PROCESSING).size());
+        assertEquals(0, shopService.getOrdersByStatus(OrderStatus.IN_DELIVERY).size());
+    }
 }
